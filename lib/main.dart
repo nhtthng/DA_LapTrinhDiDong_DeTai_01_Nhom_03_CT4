@@ -1,3 +1,4 @@
+import 'package:da_laptrinhdidongdetai_01/Screen/Home.dart';
 import 'package:da_laptrinhdidongdetai_01/Screen/Login.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Login(),
+      home: const Home(),
     );
   }
 }
