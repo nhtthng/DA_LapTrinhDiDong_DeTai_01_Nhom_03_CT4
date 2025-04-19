@@ -68,6 +68,14 @@ flutter:
     - lib\Assets\IMG\banner-on-thi-tot-nghiep-thpt-tieng-anh.png
     - lib\Assets\IMG\banner-on-thi-tot-nghiep-thpt-toan.png
     - lib\Assets\IMG\banner-on-thi-tot-nghiep-thpt-vat-ly.png
+    - lib\Assets\IMG\biology.svg
+    - lib\Assets\IMG\chemistry.svg
+    - lib\Assets\IMG\english.svg
+    - lib\Assets\IMG\math.svg
+    - lib\Assets\IMG\physics.svg
+    - lib\Assets\IMG\history.svg
+    - lib\Assets\IMG\geography.svg
+    - lib\Assets\IMG\literature.svg
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

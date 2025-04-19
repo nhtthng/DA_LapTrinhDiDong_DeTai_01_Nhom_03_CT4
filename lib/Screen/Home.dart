@@ -58,12 +58,13 @@ class _HomeState extends State<Home> {
                       onPressed: () {},
                       child: Row(
                         children: [
-                          const Icon(Icons.arrow_forward_ios),
+                          
                           Text(
                             'Xem tất cả',
                             style: TextstyleHelper.nunito(
                                 fontSize: 12, color: Colors.black),
                           ),
+                          const Icon(Icons.arrow_forward_ios),
                         ],
                       ))
                 ],
@@ -97,6 +98,36 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Text('Tự luyện', style: TextstyleHelper.nunito(
+                    fontSize: 15, color: Colors.black),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          
+                          Text(
+                            'Xem tất cả',
+                            style: TextstyleHelper.nunito(
+                                fontSize: 12, color: Colors.black),
+                          ),
+                          const Icon(Icons.arrow_forward_ios),
+                        ],
+                      ))
+                    ],
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            
           ],
         ),
       ),
