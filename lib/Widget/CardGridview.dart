@@ -4,9 +4,11 @@ class Cardgridview extends StatelessWidget {
   const Cardgridview({super.key, 
     required this.imagePath,
     required this.title,
+    required this.isBought,
   });
   final String imagePath;
   final String title;
+  final bool isBought;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,7 +24,7 @@ class Cardgridview extends StatelessWidget {
               Text(title, style: TextstyleHelper.nunito(fontSize: 13, color: Colors.black, fontWeight: FontWeight.w500),)
             ],
           ),
-          const Icon(Icons.lock_outline_rounded, size: 15, color: Colors.black),
+          isBought ? const Icon(Icons.check_circle, color: Colors.green,) : const Icon(Icons.lock_outline, color: Colors.grey,),
         ],
       ),
     );

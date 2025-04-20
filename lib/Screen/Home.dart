@@ -12,18 +12,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    int _selectedIndex = 0;
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index; // Cập nhật chỉ số tab
+      });
+    }
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
             // Handle menu button press
+            _scaffoldKey.currentState?.openDrawer();
           },
         ),
         title: const Text('Home'),
@@ -58,7 +66,6 @@ class _HomeState extends State<Home> {
                       onPressed: () {},
                       child: Row(
                         children: [
-                          
                           Text(
                             'Xem tất cả',
                             style: TextstyleHelper.nunito(
@@ -70,7 +77,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-             Container(
+            Container(
               height: screenHeight * 0.4, // Đặt chiều cao cố định cho container
               child: CarouselSlider.builder(
                 itemCount: dummyCourses.length,
@@ -102,32 +109,89 @@ class _HomeState extends State<Home> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Tự luyện', style: TextstyleHelper.nunito(
-                    fontSize: 15, color: Colors.black),
+                  Text(
+                    'Tự luyện',
+                    style: TextstyleHelper.nunito(
+                        fontSize: 15, color: Colors.black),
                   ),
                   Row(
                     children: [
                       TextButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          
-                          Text(
-                            'Xem tất cả',
-                            style: TextstyleHelper.nunito(
-                                fontSize: 12, color: Colors.black),
-                          ),
-                          const Icon(Icons.arrow_forward_ios),
-                        ],
-                      ))
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              Text(
+                                'Xem tất cả',
+                                style: TextstyleHelper.nunito(
+                                    fontSize: 12, color: Colors.black),
+                              ),
+                              const Icon(Icons.arrow_forward_ios),
+                            ],
+                          ))
                     ],
                   )
                 ],
               ),
             ),
             const SizedBox(height: 10),
-            
+          ],
+        ),
+      ),
+      // bottomNavigation
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Trang chủ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Tự học',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.celebration),
+            label: 'Ôn luyện Plus',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+      // Drawer
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text('Xin chào username!'),
+            ),
+            ListTile(
+              title: const Text('Trang chủ'),
+              leading: const Icon(Icons.home),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Tự học'),
+              leading: const Icon(Icons.search),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Ôn luyện Plus'),
+              leading: const Icon(Icons.celebration),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
           ],
         ),
       ),
