@@ -148,28 +148,31 @@ class _LoginState extends State<Login> {
                 )),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                height: 1,
-                color: Colors.white,
-              )),
-              Text(
-                'Hoặc',
-                style: TextstyleHelper.nunito(
-                    fontSize: 11,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              Expanded(
-                  child: Container(
-                margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                height: 1,
-                color: Colors.white,
-              )),
-            ],
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  height: 1,
+                  color: Colors.black,
+                )),
+                Text(
+                  'Hoặc',
+                  style: TextstyleHelper.nunito(
+                      fontSize: 11,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+                Expanded(
+                    child: Container(
+                  margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  height: 1,
+                  color: Colors.black,
+                )),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           Container(
