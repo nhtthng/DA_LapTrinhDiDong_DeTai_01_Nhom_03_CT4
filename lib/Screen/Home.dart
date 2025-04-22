@@ -216,6 +216,20 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               title: Text(
+                'Cá nhân',
+                style: TextstyleHelper.nunito(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+              leading: const Icon(Icons.person),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text(
                 'Trang chủ',
                 style: TextstyleHelper.nunito(
                   fontSize: 15,
