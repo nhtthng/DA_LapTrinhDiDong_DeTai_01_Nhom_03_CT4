@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:da_laptrinhdidongdetai_01/Assets/TextStyle.dart';
-
+import 'package:http/http.dart' as http;
 class UpdateInformation extends StatefulWidget {
   const UpdateInformation({super.key});
 
@@ -9,6 +11,138 @@ class UpdateInformation extends StatefulWidget {
 }
 
 class _UpdateInformationState extends State<UpdateInformation> {
+  List<dynamic> provinces = [];
+  List<dynamic> districts = [];
+  String? selectedProvinceCode;
+  final TextEditingController _provinceController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    fetchProvinces().then((data) {
+      setState(() {
+        provinces = data;
+      });
+    });
+  }
+  Future<List<dynamic>> fetchProvinces() async { // lấy danh sách tỉnh/thành phố từ API
+    final response = await http.get(Uri.parse('https://provinces.open-api.vn/api/p/'));
+    if (response.statusCode == 200) {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    } else {
+      throw Exception('Không thể lấy dữ liệu tỉnh/thành phố');
+    }
+  }
+  Future<List<dynamic>> fetchDistricts(String provinceCode) async {
+    final response = await http.get(Uri.parse('https://provinces.open-api.vn/api/p/$provinceCode?depth=2'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+      return data['districts'];
+    } else {
+      throw Exception('Không thể lấy dữ liệu quận/huyện');
+    }
+  }
+  void _showProvincePicker() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Chọn Tỉnh/Thành phố", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: provinces.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(provinces[index]['name']),
+                      onTap: () {
+                        setState(() {
+                          _provinceController.text = provinces[index]['name'];
+                          selectedProvinceCode = provinces[index]['code'].toString();
+                          _districtController.text = ''; // Reset quận/huyện khi chọn tỉnh mới
+                          fetchDistricts(selectedProvinceCode!).then((data) {
+                            setState(() {
+                              districts = data;
+                            });
+                          });
+                        });
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDistrictPicker() {
+    if (selectedProvinceCode == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Vui lòng chọn tỉnh/thành phố trước!")),
+      );
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Chọn Quận/Huyện", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: districts.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(districts[index]['name']),
+                      onTap: () {
+                        setState(() {
+                          _districtController.text = districts[index]['name'];
+                        });
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,6 +329,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                                 color: Colors.black.withOpacity(0.5))),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _provinceController,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.location_on),
                             border: OutlineInputBorder(
@@ -209,6 +344,9 @@ class _UpdateInformationState extends State<UpdateInformation> {
                               color: Colors.black,
                             ),
                           ),
+                          onTap: () {
+                            _showProvincePicker();
+                          },
                         ),
                         const SizedBox(height: 20),
                         Text('Quận/Huyện',
@@ -218,6 +356,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                                 color: Colors.black.withOpacity(0.5))),
                         const SizedBox(height: 10),
                         TextFormField(
+                          controller: _districtController,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.location_city),
                             border: OutlineInputBorder(
@@ -232,6 +371,7 @@ class _UpdateInformationState extends State<UpdateInformation> {
                               color: Colors.black,
                             ),
                           ),
+                          onTap: _showDistrictPicker,
                         ),
                       ],
                     ),
