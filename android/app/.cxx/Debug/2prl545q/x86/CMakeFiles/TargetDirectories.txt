@@ -1,0 +1,2 @@
+C:/Users/tuanm/Documents/Huit/BT_LTDD/DA_LapTrinhDiDong_DeTai_01_Nhom_03_CT4/android/app/.cxx/Debug/2prl545q/x86/CMakeFiles/edit_cache.dir
+C:/Users/tuanm/Documents/Huit/BT_LTDD/DA_LapTrinhDiDong_DeTai_01_Nhom_03_CT4/android/app/.cxx/Debug/2prl545q/x86/CMakeFiles/rebuild_cache.dir

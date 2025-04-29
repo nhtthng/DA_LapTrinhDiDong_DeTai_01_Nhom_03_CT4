@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525754890282",
+    "project_id": "laptrinhdidong-9596e",
+    "storage_bucket": "laptrinhdidong-9596e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525754890282:android:1ce04d8d9e327c2252eb53",
+        "android_client_info": {
+          "package_name": "com.example.da_laptrinhdidongdetai_01"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwIMrAjowZ-TZHrvpY7L5diB6w6XiV_5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
